@@ -1,13 +1,15 @@
 import { useReducer } from 'react';
 import './App.css';
 
-const initialState = 0;
+const initialState = {
+  counter: 0,
+};
 const reducer = (state, action) => {
-  switch (action) {
+  switch (action.type) {
     case 'increment':
-      return state + 1;
+      return { counter: state.counter + action.value };
     case 'decrement':
-      return state - 1;
+      return { counter: state.counter - action.value };
     default:
       return state;
   }
@@ -18,9 +20,23 @@ function App() {
 
   return (
     <div className="App">
-      <div>Count - {count}</div>
-      <button type='button' onClick={() => dispatch('increment')}>Increment</button>
-      <button type='button' onClick={() => dispatch('decrement')}>Decrement</button>
+      <div>Count : {count.counter}</div>
+      <button type='button' onClick={() => dispatch({
+        type: 'increment',
+        value: 1,
+      })}>Increment by 1</button>
+      <button type='button' onClick={() => dispatch({
+        type: 'increment',
+        value: 3
+      })}>Increment by 3</button>
+      <button type='button' onClick={() => dispatch({
+        type: 'decrement',
+        value: 1,
+      })}>Decrement by 1</button>
+      <button type='button' onClick={() => dispatch({
+        type: 'decrement',
+        value: 3,
+      })}>Decrement by 3</button>
     </div>
   );
 }
